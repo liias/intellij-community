@@ -90,6 +90,7 @@ class MavenSettingsCollector : ProjectUsagesCollector() {
     usages.add(newBooleanMetric("hasRunnerEnvVariables", !runnerSettings.environmentProperties.isNullOrEmpty()))
     usages.add(newBooleanMetric("passParentEnv", runnerSettings.isPassParentEnv))
     usages.add(newBooleanMetric("skipTests", runnerSettings.isSkipTests))
+    usages.add(newBooleanMetric("alsoMake", runnerSettings.isAlsoMake))
     usages.add(newBooleanMetric("hasRunnerMavenProperties", !runnerSettings.mavenProperties.isNullOrEmpty()))
     return usages
   }

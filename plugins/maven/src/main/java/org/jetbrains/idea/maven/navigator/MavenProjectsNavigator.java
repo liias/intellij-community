@@ -190,6 +190,11 @@ public final class MavenProjectsNavigator extends MavenSimpleProjectComponent im
       public void skipTestsChanged() {
         scheduleStructureRequest(() -> myStructure.updateGoals());
       }
+
+      @Override
+      public void alsoMakeChanged() {
+        scheduleStructureRequest(() -> myStructure.updateGoals());
+      }
     });
 
     myProject.getMessageBus().connect().subscribe(RunManagerListener.TOPIC, new RunManagerListener() {

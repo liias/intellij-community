@@ -40,6 +40,7 @@ public class MavenRunnerSettings implements Cloneable {
   @NotNull private String jreName = USE_PROJECT_JDK;
   @NotNull private String vmOptions = "";
   private boolean skipTests = false;
+  private boolean alsoMake = false;
   private Map<String, String> mavenProperties = new LinkedHashMap<>();
 
   private Map<String, String> environmentProperties = new HashMap<>();
@@ -94,6 +95,15 @@ public class MavenRunnerSettings implements Cloneable {
     this.skipTests = skipTests;
   }
 
+  public boolean isAlsoMake() {
+    return alsoMake;
+  }
+
+  public void setAlsoMake(boolean alsoMake) {
+    if (alsoMake != this.alsoMake) fireAlsoMakeChanged();
+    this.alsoMake = alsoMake;
+  }
+
   public Map<String, String> getMavenProperties() {
     return this.mavenProperties;
   }
@@ -137,8 +147,16 @@ public class MavenRunnerSettings implements Cloneable {
     }
   }
 
+  private void fireAlsoMakeChanged() {
+    for (Listener each : myListeners) {
+      each.alsoMakeChanged();
+    }
+  }
+
   public interface Listener {
     void skipTestsChanged();
+
+    default void alsoMakeChanged() {}
   }
 
   public boolean equals(final Object o) {
@@ -150,6 +168,7 @@ public class MavenRunnerSettings implements Cloneable {
     if (delegateBuildToMaven != that.delegateBuildToMaven) return false;
     if (runMavenInBackground != that.runMavenInBackground) return false;
     if (skipTests != that.skipTests) return false;
+    if (alsoMake != that.alsoMake) return false;
     if (!jreName.equals(that.jreName)) return false;
     if (mavenProperties != null ? !mavenProperties.equals(that.mavenProperties) : that.mavenProperties != null) return false;
     if (!vmOptions.equals(that.vmOptions)) return false;
@@ -166,6 +185,7 @@ public class MavenRunnerSettings implements Cloneable {
     result = 31 * result + jreName.hashCode();
     result = 31 * result + vmOptions.hashCode();
     result = 31 * result + (skipTests ? 1 : 0);
+    result = 31 * result + (alsoMake ? 1 : 0);
     result = 31 * result + environmentProperties.hashCode();
     result = 31 * result + (mavenProperties != null ? mavenProperties.hashCode() : 0);
     return result;

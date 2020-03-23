@@ -514,6 +514,11 @@
             icon="AllIcons.Nodes.ExceptionClass">
     </action>
 
+    <action id="Maven.ToggleAlsoMake"
+            class="org.jetbrains.idea.maven.project.actions.ToggleAlsoMakeAction"
+            icon="AllIcons.Nodes.Include">
+    </action>
+
     <action id="Maven.ExpandAll" class="org.jetbrains.idea.maven.navigator.actions.MavenTreeAction$ExpandAll"
             icon="AllIcons.Actions.Expandall"
             use-shortcut-of="ExpandAll"/>

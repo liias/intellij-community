@@ -44,6 +44,7 @@ public class MavenRunnerPanel {
   private ExternalSystemJdkComboBox myJdkCombo;
 
   private JCheckBox mySkipTestsCheckBox;
+  private JCheckBox myAlsoMakeCheckBox;
   private MavenPropertiesPanel myPropertiesPanel;
 
   private Map<String, String> myProperties;
@@ -125,6 +126,9 @@ public class MavenRunnerPanel {
     propertiesPanel.add(mySkipTestsCheckBox = new JCheckBox(MavenConfigurableBundle.message("maven.settings.runner.skip.tests")), BorderLayout.NORTH);
     mySkipTestsCheckBox.setMnemonic('t');
 
+    propertiesPanel.add(myAlsoMakeCheckBox = new JCheckBox(MavenConfigurableBundle.message("maven.settings.runner.also.make")), BorderLayout.NORTH);
+    myAlsoMakeCheckBox.setMnemonic('a');
+
     collectProperties();
     propertiesPanel.add(myPropertiesPanel = new MavenPropertiesPanel(myProperties), BorderLayout.CENTER);
     myPropertiesPanel.getEmptyText().setText(MavenConfigurableBundle.message("maven.settings.runner.properties.not.defined"));
@@ -156,6 +160,7 @@ public class MavenRunnerPanel {
     myRunInBackgroundCheckbox.setSelected(data.isRunMavenInBackground());
     myVMParametersEditor.setText(data.getVmOptions());
     mySkipTestsCheckBox.setSelected(data.isSkipTests());
+    myAlsoMakeCheckBox.setSelected(data.isAlsoMake());
 
     myJdkCombo.refreshData(data.getJreName());
 
@@ -171,6 +176,7 @@ public class MavenRunnerPanel {
     data.setRunMavenInBackground(myRunInBackgroundCheckbox.isSelected());
     data.setVmOptions(myVMParametersEditor.getText().trim());
     data.setSkipTests(mySkipTestsCheckBox.isSelected());
+    data.setAlsoMake(myAlsoMakeCheckBox.isSelected());
     data.setJreName(myJdkCombo.getSelectedValue());
 
     data.setMavenProperties(myPropertiesPanel.getDataAsMap());

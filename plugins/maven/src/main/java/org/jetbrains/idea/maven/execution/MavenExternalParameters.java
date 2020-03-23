@@ -398,6 +398,10 @@ public class MavenExternalParameters {
       parametersList.addProperty("skipTests", "true");
     }
 
+    if (runnerSettings.isAlsoMake()) {
+      parametersList.add("-am");
+    }
+
     for (Map.Entry<String, String> entry : runnerSettings.getMavenProperties().entrySet()) {
       if (entry.getKey().length() > 0) {
         parametersList.addProperty(entry.getKey(), entry.getValue());
